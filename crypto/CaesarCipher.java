@@ -2,7 +2,7 @@ import java.util.*;
 
 public class CaesarCipher{
 
-    public Character[] alphabet;
+    private Character[] alphabet;
 
     public CaesarCipher(Character[] alphabet){
         this.alphabet = alphabet;
@@ -20,17 +20,29 @@ public class CaesarCipher{
                 continue;
             }
             Integer newIndex = x.newIndex(oldChar, s);
-            Character newChar = this.alphabet[newIndex.intValue()];
-            newMsg.setCharAt(i, newChar.charValue());
+            if(newIndex >= 0){
+                Character newChar = this.alphabet[newIndex.intValue()];
+                newMsg.setCharAt(i, newChar.charValue());
+            }
         }
         return newMsg.toString();
     }
+
+    public String unscramble(String message, int s){
+        return scramble(message, -s);
+    }
+
     public static void main(String[] args) {
         Character[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
                             'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
                             'U', 'V', 'W', 'X', 'Y', 'Z'};
         CaesarCipher cipher = new CaesarCipher(alphabet);  
-        String message = "FILIP"; 
-        System.out.println(cipher.scramble(message, 3));
+        String message = "TESTING THE CAESAR CIPHER."; 
+        String scramble = cipher.scramble(message, 3);
+        String unscrambled = cipher.scramble(scramble, -3);
+        System.out.println("Scrambled:");
+        System.out.println(scramble);
+        System.out.println("Unscrambled:");
+        System.out.println(unscrambled);
     }
 }

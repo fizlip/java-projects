@@ -11,21 +11,26 @@ public class Alphabet<E>{
     }
 
     // Shift alphabet i steps.
-    public void shift(int i){
-        for(int j = 0; j < letters.size(); j++){
-            if(j+i < 0){
-                j = letters.size() + (j+1)%(letters.size());
-            }
-            E letter = (E) letters.keySet().toArray()[j];
-            letters.replace(letter, (j+i)%(letters.size()));
-        }
-    }
+    // public void shift(int i){
+    //     for(int j = 0; j < letters.size(); j++){
+    //         if(j+i < 0){
+    //             j = letters.size() + (j+1)%(letters.size());
+    //         }
+    //         E letter = (E) letters.keySet().toArray()[j];
+    //         letters.replace(letter, (j+i)%(letters.size()));
+    //     }
+    // }
 
     public int newIndex(E value, int shift){
-        Integer oldIndex = letters.get(value);
-        if(oldIndex.intValue() + shift < 0){
-            shift = letters.size() + (oldIndex+1)%(letters.size());
+        try{
+            Integer oldIndex = letters.get(value);
+            if(oldIndex.intValue() + shift < 0){
+                shift = letters.size() + (oldIndex+1)%(letters.size());
+            }
+            return (shift + oldIndex)%(letters.size());
         }
-        return (shift + oldIndex)%(letters.size());
+        catch(NullPointerException e){
+            return -1;
+        }
     }
 }
