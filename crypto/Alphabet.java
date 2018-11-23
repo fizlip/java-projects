@@ -20,4 +20,12 @@ public class Alphabet<E>{
             letters.replace(letter, (j+i)%(letters.size()));
         }
     }
+
+    public int newIndex(E value, int shift){
+        Integer oldIndex = letters.get(value);
+        if(oldIndex.intValue() + shift < 0){
+            shift = letters.size() + (oldIndex+1)%(letters.size());
+        }
+        return (shift + oldIndex)%(letters.size());
+    }
 }

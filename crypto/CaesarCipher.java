@@ -9,17 +9,17 @@ public class CaesarCipher{
     }
 
     public String scramble(String message, int s){
-        Alphabet x = new Alphabet<Character>(this.alphabet);
+        Alphabet<Character> x = new Alphabet<>(this.alphabet);
 
         StringBuilder newMsg = new StringBuilder();
         newMsg.append(message);
-        x.shift(s);
+        // x.shift(s);
         for(int i = 0; i < newMsg.length(); i++){
             Character oldChar = newMsg.charAt(i);
             if(oldChar.equals(' ')){
                 continue;
             }
-            Integer newIndex = Integer.parseInt(x.letters.get(oldChar).toString());
+            Integer newIndex = x.newIndex(oldChar, s);
             Character newChar = this.alphabet[newIndex.intValue()];
             newMsg.setCharAt(i, newChar.charValue());
         }
@@ -30,7 +30,7 @@ public class CaesarCipher{
                             'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
                             'U', 'V', 'W', 'X', 'Y', 'Z'};
         CaesarCipher cipher = new CaesarCipher(alphabet);  
-        String message = "ILIIP"; 
+        String message = "FILIP"; 
         System.out.println(cipher.scramble(message, 3));
     }
 }
