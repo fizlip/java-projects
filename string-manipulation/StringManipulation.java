@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class StringManipulation{
     public static void main(String[] args){
-        System.out.println(interleave2("alexander", "p"));
+        System.out.println(isPalindrome2(args[0]));
     }
 
     public static <E> E[] reverse(E[] x){
@@ -79,5 +79,74 @@ public class StringManipulation{
         return result.toString();
     }
 
-    // apnantarik
+    /**
+     * Given a word this function will return a boolean value showing if the word is
+     * a palindrome or not. The function first reverses the given and then checks if
+     * the reversed string equals the original word. If it is then it returns true 
+     * otherwise false.
+     * 
+     * The reversion algorithm has complexity O(n), the equality is assumed to 
+     * have O(1), the function has complexity O(n).
+     * 
+     * @param word the word to chekc
+     * @return boolean
+     */
+    public static boolean isPalindrome(String word){
+
+        String revString = reverseString(word);
+        if(revString.toString().toUpperCase().equals(word.toUpperCase())){
+            return true;
+        }
+        return false;
+    }
+
+    public static String reverseString(String word){
+        StringBuilder revString = new StringBuilder(word);
+
+        for(int i = 0; i < word.length()/2; i++){
+            char temp = word.charAt(word.length()-1-i);
+            revString.setCharAt(i, word.charAt(word.length()-1-i));
+            revString.setCharAt(word.length()-1-i, temp);
+        }
+        return revString.toString();
+    }
+
+    /**
+     * Standalone is palindrome2 uses two indexes high and low to keep track of 
+     * indexes in the string. A while-loop is used to check every character 
+     * in each half of the string. If the character is not alphabetical then
+     * the index that this characers belongs to i.e. high or low is incremented
+     * or decremented.
+     * 
+     * The while loops length will be dependent upon the length of the string
+     * becuase the high and low indexes are calculated from the string length. 
+     * Complexity is then given by O(n).
+     * 
+     * @param string
+     * @return
+     */
+
+    public static boolean isPalindrome2(String string){
+        string = string.toUpperCase();
+        int high = string.length()-1;
+        int low = 0;
+        while(high > low){
+            Character cl = string.charAt(low);
+            Character ch = string.charAt(high);
+            if(!Character.isAlphabetic(cl)){
+                low++;
+                continue;
+            }
+            if(!Character.isAlphabetic(ch)){
+                high--;
+                continue;
+            }
+            if(!cl.equals(ch)){
+                return false;
+            }
+            low++;
+            high--;
+        }
+        return true;
+    }
 }
